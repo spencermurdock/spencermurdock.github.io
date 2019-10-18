@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -13,13 +13,22 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: purple;
+			color:white; 
+			background-image:url("https://i.ytimg.com/vi/QmANBW3xDWQ/maxresdefault.jpg");
+			background-size:80px; 
+			background-repeat:no-repeat;
 			font-size: 300%;
-			text-align: center;
+			text-align: center; 
 			display: block;
 			position: absolute;
 			top: 100px;
 			left: 0px;
+		}
+		
+		body {
+		    background-image:url("https://wallpapertag.com/wallpaper/full/c/7/3/268545-download-free-galaxy-background-1920x1080.jpg");
+		    background-repeat: no-repeat; 
+		    background-size: 1950
 		}
 	</style>
 
@@ -37,36 +46,61 @@
 			// jQuery stuff setup for you
 			var box = jQuery('.box');
 			var boardWidth = jQuery('.board').width();
+			
+			
 	
 			// TODO 2 - Variable declarations
 			var position;       // reference for the x-coordinate of our box
             var points;         // reference for the points displayed on the box
             var speed;          // reference for how fast the box moves
-            var direction;       // reference for the direction the box is moving: 1 means right, -1 means left
+            var direction;      // reference for the direction the box is moving: 1 means right, -1 means left
+            var positionY;
+            var directionY;
+            var boardHeight = jQuery(window).height(); 
+             
 
             box.css('left', position);      // moves the box to the x-coordinate of <position> 
+            box.css('top' , positionY); 
             box.text(points);               // changes the text of the box to display the value of <points>
             
             position = 0;
             points = 0;
             speed = 10;
             direction = 1;
-
+            positionY = 
+            directionY = 1
 			
 			function update() {
 				// TODO 3 / 6 / 7 / 8
 				 position += speed * direction;    // increment position by speed on every update
                  console.log("new position: " + position);
+                 positionY += speed * directionY;    
+                 console.log("new position: " + positionY);
                  
                  if(position > boardWidth) {
                       console.log("Right Wall Hit");
                       direction = -1;
                       console.log(direction);
                       
+                  }
+      
+                 if(position < 0) {
+                     console.log("Left Wall Hit");
+                     direction = 1;
+                    
                  }
-                 box.css('left', position);      // set the 'left' CSS property of the box to the new value of position
-                 
- };
+                 if(positionY < 0) {
+                     console.log("top Wall Hit");
+                     directionY = 1;
+                 }
+                 if(positionY > boardHeight) {
+                     console.log("bottom Wall Hit");
+                     directionY = -1;
+                 }
+
+                 box.css('left', position);    // set the 'left' CSS property of the box to the new value of position
+                 box.css('top' , positionY);
+            };
 
 
 			
@@ -74,9 +108,10 @@
 				// TODO 4 / 5
 				 points += 1;           // increase the point total
                  box.text(points);      // update the new points total displayed by the box
-                 position = 0;         // reset the position of the box to 0
+                 randNum = Math.random()*100;
+                 position = randNum;
                  speed += 3;    // increase the speed of the box on every click
-			};
+			}
 
 
 			//this executes the update function code every 50 milliseconds
