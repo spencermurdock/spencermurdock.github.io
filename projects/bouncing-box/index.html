@@ -57,7 +57,7 @@
             var positionY;
             var directionY;
             var boardHeight = jQuery(window).height(); 
-             
+            var randNum = Math.random()*100;
 
             box.css('left', position);      // moves the box to the x-coordinate of <position> 
             box.css('top' , positionY); 
@@ -109,7 +109,7 @@
 				 points += 1;           // increase the point total
                  box.text(points);      // update the new points total displayed by the box
                  randNum = Math.random()*100;
-                 position = randNum;
+                 position = randNum; 
                  speed += 3;    // increase the speed of the box on every click
 			}
 
