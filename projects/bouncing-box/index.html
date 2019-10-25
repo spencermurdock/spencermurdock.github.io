@@ -58,6 +58,7 @@
             var directionY;
             var boardHeight = jQuery(window).height(); 
             var randNum = Math.random()*100;
+            var misclick; 
 
             box.css('left', position);      // moves the box to the x-coordinate of <position> 
             box.css('top' , positionY); 
@@ -67,8 +68,9 @@
             points = 0;
             speed = 10;
             direction = 1;
-            positionY = 
+            positionY = 0
             directionY = 1
+            misclick = 0; 
 			
 			function update() {
 				// TODO 3 / 6 / 7 / 8
@@ -101,6 +103,11 @@
                  box.css('left', position);    // set the 'left' CSS property of the box to the new value of position
                  box.css('top' , positionY);
             };
+            
+            function endGame() {
+                clearInterval(interval);
+                jQuery('body').append('<h1>').text('GAME OVER');
+            }
 
 
 			
@@ -113,11 +120,23 @@
                  speed += 3;    // increase the speed of the box on every click
 			}
 			
+			function handleBodyClick() {
+			    
+			    console.log("Hit")
+			    misclick += 1; 
+			    
+		           if ( misclick-points >= 11) {
+			        endGame(); 
+			        }
+		      }
+
+			
 
 			//this executes the update function code every 50 milliseconds
-			setInterval(update, 50);
+			var interval = setInterval(update, 50); 
 			// this executes the handleBoxClick function code every time the box is clicked on
 			box.on('click', handleBoxClick);
+			jQuery("body").on('click',handleBodyClick);
 		})();
 	</script>
 </body>
