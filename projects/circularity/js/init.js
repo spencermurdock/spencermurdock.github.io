@@ -54,17 +54,17 @@ var init = function (window) {
                 circle.x = 0;
             } 
             // TODO 5a) if the circle has gone past of the LEFT side of the screen then place it on the RIGHT
-            else if ( / * Fill me in! * / ) {
-                
+            else if ( circle.x < canvas.width ) {
+                     circle.x = 0; 
             } 
 
             // TODO 5b) if the circle has gone past of the TOP side of the screen then place it on the BOTTOM
-            if ( / * Fill me in! * / ) {
-                
+            if ( circle.y > canvas.height ) {
+                circle.y = 0; 
             }
             // TODO 5c) if the circle has gone past of the BOTTOM side of the screen then place it OFF-SCREEN TOP
-            else if ( / * Fill me in! * / ) {
-            
+            else if ( circle.y < canvas.height) {
+                     circle.y = 0; 
             }
             // YOUR TODO 5 CODE ENDS HERE //////////////////////////
         }
@@ -78,8 +78,11 @@ var init = function (window) {
                      physikz.updatePosition(circles[4]);
             
             // TODO 5 : Call game.checkCirclePosition on your circles.
-           
-
+            game.checkCirclePosition(circles[0]);
+            game.checkCirclePosition(circles[1]);
+            game.checkCirclePosition(circles[2]);
+            game.checkCirclePosition(circles[3]);
+            game.checkCirclePosition(circles[4]);
             // TODO 8 : Iterate over the array
            
 
