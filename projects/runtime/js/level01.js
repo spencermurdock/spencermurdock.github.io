@@ -19,8 +19,13 @@ var level01 = function (window) {
                 {type: 'sawblade',x:400,y:groundY},
                 {type: 'sawblade',x:600,y:355},
                 {type: 'sawblade',x:900,y:groundY},
-                {type: 'box',x:1000,y:300}
-               ]
+                {type: 'box',x:1000,y:300},
+                {type:'enemy',x:400 ,y:groundY-10},
+                {type:'enemy',x:800 ,y:groundY-100},
+                {type:'reward',x:1000,y:350},
+                {type:'reward',x:900,y:350}
+                
+             ]
     
         };
         window.levelData = levelData;
@@ -53,7 +58,12 @@ var level01 = function (window) {
                createSawBlade(gameItem.x,gameItem.y); 
             } else if (gameItem.type ==='box') {
                 createBox(gameItem.x, gameItem.y);
+            } else if (gameItem.type === 'enemy'){
+                createEnemy(gameItem.x, gameItem.y)
+            } else if (gameItem.type === 'reward') {
+                createReward(gameItem.x, gameItem.y)
             }
+            
             
             
     
@@ -97,11 +107,28 @@ var level01 = function (window) {
                 game.increaseScore(100);
                 enemy.shrink(); 
             }
+            
            
           }
-          createEnemy(400,groundY-10);
-          createEnemy(800,groundY-100);
-          createEnemy(1200,groundY-50);
+          function createReward (x,y) {
+            var reward = game.createGameItem('reward',25);
+            var yellowSquare = draw.rect(60,60,'yellow');
+            yellowSquare.x = -25;
+            yellowSquare.y = -25;
+            reward.addChild(yellowSquare);
+            reward.x = x;
+            reward.y = y;
+            reward.velocityX = -1;
+            reward.rotationalVelocity = 10;
+            game.addGameItem(reward);
+            reward.onPlayerCollision = function() {
+                game.increaseScore(500); 
+                console.log('Halle has hit a reward')
+                reward.fadeOut(); 
+};
+             
+  }
+          
 
 
     };
