@@ -18,8 +18,9 @@ var level01 = function (window) {
             gameItems: [
                 {type: 'sawblade',x:400,y:groundY},
                 {type: 'sawblade',x:600,y:355},
-                {type: 'sawblade',x:900,y:groundY}
-            ]
+                {type: 'sawblade',x:900,y:groundY},
+                {type: 'box',x:100,y:200}
+               ]
     
         };
         window.levelData = levelData;
@@ -52,10 +53,24 @@ var level01 = function (window) {
             
     
         }
-        function createBox(x,y) {
-   
+        function createBox(x,y)  {
+            
+           
+              var hitZoneSize = 15;
+            var damageFromObstacle = 10;
+            var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
+            
+             myObstacle.x = x;
+             myObstacle.y = y;
+             game.addGameItem(myObstacle);
+             
+            var myItem = draw.square('blue', 200, 100, 300);
+            myObstacle.addChild(myItem);
+            
+             myItem.x = -25;
+             myItem.y = -25;
         };
-        createBox(100,200);
+createBox(); 
     }
 
 };
