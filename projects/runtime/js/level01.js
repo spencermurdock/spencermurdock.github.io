@@ -19,7 +19,7 @@ var level01 = function (window) {
                 {type: 'sawblade',x:400,y:groundY},
                 {type: 'sawblade',x:600,y:355},
                 {type: 'sawblade',x:900,y:groundY},
-                {type: 'box',x:100,y:200}
+                {type: 'box',x:1000,y:300}
                ]
     
         };
@@ -48,15 +48,21 @@ var level01 = function (window) {
               
         for ( var lol = 0; lol < levelData.gameItems.length; lol++) {
             var gameItem = levelData.gameItems[lol];
-            createSawBlade(gameItem.x,gameItem.y)  
+           if (gameItem.type === 'sawblade'){
+
+               createSawBlade(gameItem.x,gameItem.y); 
+            } else if (gameItem.type ==='box') {
+                createBox(gameItem.x, gameItem.y);
+            }
             
             
     
         }
+        
         function createBox(x,y)  {
             
            
-              var hitZoneSize = 15;
+             var hitZoneSize = 15;
             var damageFromObstacle = 10;
             var myObstacle = game.createObstacle(hitZoneSize,damageFromObstacle);
             
@@ -64,15 +70,41 @@ var level01 = function (window) {
              myObstacle.y = y;
              game.addGameItem(myObstacle);
              
-            var myItem = draw.square('blue', 200, 100, 300);
+            var myItem = draw.rect( 100, 100, "blue");
             myObstacle.addChild(myItem);
             
              myItem.x = -25;
              myItem.y = -25;
-        };
-createBox(); 
-    }
+        }
+        function createEnemy(x,y){
+            var enemy =  game.createGameItem('enemy',25);
+            var redSquare = draw.rect(50,50,'white');
+            redSquare.x = -25;
+            redSquare.y = -25;
+            enemy.addChild(redSquare);
+            enemy.x = x;
+            enemy.y = y;
+            enemy.velocityX = -1;
+            enemy.rotationalVelocity = 10;
+            game.addGameItem(enemy);
+            enemy.onPlayerCollision = function() {
+                console.log('The enemy has hit Halle'); 
+                  game.changeIntegrity(30); 
+                 enemy.fadeOut(); 
+            };
+            enemy.onProjectileCollision = function() {
+                console.log('Halle has hit the enemy')
+                game.increaseScore(100);
+                enemy.shrink(); 
+            }
+           
+          }
+          createEnemy(400,groundY-10);
+          createEnemy(800,groundY-100);
+          createEnemy(1200,groundY-50);
 
+
+    };
 };
 
 
