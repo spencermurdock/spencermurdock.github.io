@@ -24,11 +24,14 @@ $(document).ready(function() {
         
         //todo 4 //
 let topRated = data.discography.topRated;
-_.forEach(topRated, function(titles) {
-    console.log(titles);
+const $info = _.forEach(topRated, function(value) {
+    console.log(value);
 });
-
-$('topRated').appendTo("list-top-rated").css('font-family',"jokerman");  
+var $li = $('<li>'); 
+var $realInfo =$li.append($info); 
+$('#list-top-rated').append($realInfo); 
+$('topRated').appendTo("list-top-rated").css('font-family',"jokerman");
+ 
 
 
         
